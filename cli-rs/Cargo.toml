@@ -9,15 +9,25 @@ license = "Apache-2.0"
 name = "fx"
 path = "src/main.rs"
 
+# Tuned for the smallest possible binary (~8 MB). opt-level "z" is ~1.9x slower on
+# heavy compute than 2/3 but halves the size; "z" also beats "s" here (8.1 vs 12.5 MB).
 [profile.release]
-strip = true
-lto = "thin"
+opt-level = "z"     # optimize for size
+lto = true          # fat link-time optimization
+codegen-units = 1   # one unit: better cross-module optimization & dead-code removal
+panic = "abort"     # drop unwinding tables/landing pads
+strip = true        # strip symbols and debuginfo
 
 [dependencies]
-clap = { version = "4.6.1", features = ["derive"] }
+# Trim clap to essentials; keep `color` for the rich help theme, drop `suggestions`.
+clap = { version = "4.6.1", default-features = false, features = ["std", "derive", "help", "usage", "error-context", "color"] }
 dirs = "6.0.0"
-polars = { version = "0.54.4", features = ["ipc", "parquet", "csv", "json", "describe", "fmt"] }
+# default-features = false drops polars' unused defaults (docs, zip_with, temporal).
+# `describe` is omitted: our describe is built from core Series stats, not DataFrame::describe.
+polars = { version = "0.54.4", default-features = false, features = ["ipc", "parquet", "csv", "json", "fmt"] }
 serde = { version = "1.0.228", features = ["derive"] }
 serde_json = "1.0.150"
 thiserror = "2.0.18"
-ureq = "3.3.0"
+# rustls (with the bundled ring provider) works with no runtime setup and stays
+# portable; drop `gzip` (flate2) — GitHub serves these payloads fine uncompressed.
+ureq = { version = "3.3.0", default-features = false, features = ["rustls"] }

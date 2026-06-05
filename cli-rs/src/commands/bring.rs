@@ -4,11 +4,12 @@
 //! the requested format when cached, otherwise falls back to whichever cached
 //! format is available, in priority order.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::colors::{bold, cyan, green, magenta, red, yellow};
 use crate::constants::local_dir;
 use crate::errors::{FramexError, Result};
+use crate::paths::resolve_dir;
 
 /// Format fallback order when the requested format is not cached.
 const FORMATS: [&str; 5] = ["csv", "feather", "parquet", "ipc", "json"];
@@ -18,8 +19,8 @@ pub fn run(name: &str, dir: Option<&str>, format: &str, overwrite: bool) -> Resu
     let cache_dir = local_dir()?;
 
     let new_dir: PathBuf = match dir {
-        Some(path) => PathBuf::from(path),
-        None => std::env::current_dir()?,
+        Some(path) => resolve_dir(Path::new(path)),
+        None => resolve_dir(&std::env::current_dir()?),
     };
 
     // Anything cached under this name? Mirrors `glob(f"{name}.*")`.

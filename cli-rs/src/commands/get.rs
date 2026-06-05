@@ -2,7 +2,7 @@
 //!
 //! Mirrors `_get` from `framex/cli/_cli.py`.
 
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 use crate::catalog;
 use crate::colors::{bold, cyan, green, magenta, red, yellow};
@@ -10,6 +10,7 @@ use crate::constants::local_dir;
 use crate::errors::{FramexError, Result};
 use crate::http;
 use crate::load::{read_ipc_bytes, save};
+use crate::paths::resolve_dir;
 
 /// Get a single dataset by `name`.
 pub fn run(
@@ -19,9 +20,9 @@ pub fn run(
     overwrite: bool,
     cache: bool,
 ) -> Result<()> {
-    // Resolve the destination directory.
+    // Resolve the destination directory (paths are canonicalized, as in Python).
     let destination: PathBuf = if dir.is_none() && !cache {
-        std::env::current_dir()?
+        resolve_dir(&std::env::current_dir()?)
     } else if cache {
         if dir.is_some() {
             println!(
@@ -36,7 +37,7 @@ pub fn run(
         }
         local_dir()?
     } else {
-        PathBuf::from(dir.unwrap())
+        resolve_dir(Path::new(dir.unwrap()))
     };
 
     // Check availability against the remote datasets.

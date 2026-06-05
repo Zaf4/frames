@@ -10,6 +10,7 @@ mod constants;
 mod errors;
 mod http;
 mod load;
+mod paths;
 
 use clap::builder::styling::{Ansi256Color, Color, Style, Styles};
 use clap::{ArgAction, CommandFactory, Parser, Subcommand};
