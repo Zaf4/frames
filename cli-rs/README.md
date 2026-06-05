@@ -7,7 +7,25 @@ local cache (`~/.cache/framex/datasets`).
 
 The Python CLI (`framex/cli/`) is kept as-is; this crate is purely additive.
 
-## Build
+## Install
+
+### Prebuilt binaries
+
+Each `v*` tag triggers `.github/workflows/build-cli.yml`, which builds and
+attaches binaries to the GitHub Release for:
+
+| Platform | Target | Asset |
+| --- | --- | --- |
+| Linux (x86-64) | `x86_64-unknown-linux-gnu` | `fx-…-linux-gnu.tar.gz` |
+| macOS (Intel) | `x86_64-apple-darwin` | `fx-…-apple-darwin.tar.gz` |
+| macOS (Apple Silicon) | `aarch64-apple-darwin` | `fx-…-apple-darwin.tar.gz` |
+| Windows (x86-64) | `x86_64-pc-windows-msvc` | `fx-…-windows-msvc.zip` |
+
+Each archive ships a single `fx` (`fx.exe` on Windows) plus a `.sha256`.
+Download, extract, and put it on your `PATH`. The workflow can also be run
+manually from the Actions tab (`workflow_dispatch`).
+
+### Build from source
 
 ```shell
 cargo build --release
