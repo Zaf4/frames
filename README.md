@@ -15,10 +15,16 @@ Built on top of [Polars](https://pola.rs/).
 
 ## Installation
 
-To get started, install the library with:
+Install the Python library with:
 
 ``` shell
 pip install framex
+```
+
+Or install the standalone Rust CLI on Linux or macOS Apple Silicon:
+
+``` shell
+curl -LsSf https://raw.githubusercontent.com/datavil/framex/master/install.sh | sh
 ```
 
 ## Usage

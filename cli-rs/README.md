@@ -9,6 +9,21 @@ The Python CLI (`framex/cli/`) is kept as-is; this crate is purely additive.
 
 ## Install
 
+### Install script (Linux and macOS Apple Silicon)
+
+```shell
+curl -LsSf https://raw.githubusercontent.com/datavil/framex/master/install.sh | sh
+```
+
+The script verifies the release archive's SHA-256 checksum and installs `fx`
+to `~/.local/bin`. Set `FX_INSTALL_DIR` to choose another directory, or
+`FX_VERSION` to install a specific release:
+
+```shell
+curl -LsSf https://raw.githubusercontent.com/datavil/framex/master/install.sh \
+  | FX_VERSION=1.0.3 FX_INSTALL_DIR="$HOME/bin" sh
+```
+
 ### Prebuilt binaries
 
 Each `v*` tag triggers `.github/workflows/build-cli.yml`, which builds and
@@ -17,9 +32,10 @@ attaches binaries to the GitHub Release for:
 | Platform | Target | Asset |
 | --- | --- | --- |
 | Linux (x86-64) | `x86_64-unknown-linux-gnu` | `fx-…-linux-gnu.tar.gz` |
-| macOS (Intel) | `x86_64-apple-darwin` | `fx-…-apple-darwin.tar.gz` |
+| Linux (ARM64) | `aarch64-unknown-linux-gnu` | `fx-…-linux-gnu.tar.gz` |
 | macOS (Apple Silicon) | `aarch64-apple-darwin` | `fx-…-apple-darwin.tar.gz` |
 | Windows (x86-64) | `x86_64-pc-windows-msvc` | `fx-…-windows-msvc.zip` |
+| Windows (ARM64) | `aarch64-pc-windows-msvc` | `fx-…-windows-msvc.zip` |
 
 Each archive ships a single `fx` (`fx.exe` on Windows) plus a `.sha256`.
 Download, extract, and put it on your `PATH`. The workflow can also be run
