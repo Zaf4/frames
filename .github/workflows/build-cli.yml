@@ -59,7 +59,7 @@ jobs:
         if: matrix.target == 'aarch64-pc-windows-msvc'
         uses: ilammy/msvc-dev-cmd@v1
         with:
-          arch: arm64
+          arch: amd64_arm64
 
       - name: Cache cargo build
         uses: Swatinem/rust-cache@v2
