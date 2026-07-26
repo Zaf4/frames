@@ -125,7 +125,7 @@ html_theme_options = {
     "footer_center": ["sphinx-version"],
     "footer_end": ["theme-version"],
 }
-html_favicon = "_static/datavil.svg"
+html_favicon = "_static/framex-logo.svg"
 
 html_sidebars = {
     "**": [],  # no search, links, etc. on any page
