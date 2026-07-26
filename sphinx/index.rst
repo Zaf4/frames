@@ -31,6 +31,35 @@ Installation
 
          poetry add framex
 
+   .. tab-item:: pipx
+      :sync: pipx
+
+      .. code-block:: bash
+
+         pipx install framex
+
+
+Rust CLI
+^^^^^^^^
+
+The standalone Rust ``fx`` CLI can be installed without Python.
+
+.. tab-set::
+
+   .. tab-item:: Linux and macOS
+      :sync: rust-unix
+
+      .. code-block:: bash
+
+         curl -LsSf https://framex.datavil.org/install.sh | sh
+
+   .. tab-item:: Windows PowerShell
+      :sync: rust-windows
+
+      .. code-block:: powershell
+
+         powershell -ExecutionPolicy ByPass -c "irm https://framex.datavil.org/install.ps1 | iex"
+
 
 .. toctree::
    :maxdepth: 1

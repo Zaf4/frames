@@ -21,11 +21,34 @@ Install the Python library with:
 pip install framex
 ```
 
-Or install the standalone Rust CLI on Linux or macOS Apple Silicon:
+For CLI it is suggested to use pipx
 
 ``` shell
-curl -LsSf https://raw.githubusercontent.com/datavil/framex/master/install.sh | sh
+pipx install framex
 ```
+
+Or install the standalone Rust CLI on Linux or macOS:
+
+``` shell
+curl -LsSf https://framex.datavil.org/install.sh | sh
+```
+
+On Windows PowerShell:
+
+``` powershell
+powershell -ExecutionPolicy ByPass -c "irm https://framex.datavil.org/install.ps1 | iex"
+```
+
+### Rust CLI platform availability
+
+> **This table is for the standalone Rust `fx` CLI.**
+
+| Platform | x86-64 | ARM64 |
+| --- | --- | --- |
+| Windows | ✅ | ✅ |
+| macOS | ✅ | ✅ |
+| Linux (Ubuntu, Debian, Fedora, etc.) | ✅ | ✅ |
+| Alpine Linux | ✅ | ✅ |
 
 ## Usage
 
