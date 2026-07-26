@@ -1,5 +1,4 @@
 [![Banner](https://github.com/datavil/framex/blob/master/.github/framex_banner_narrower.png?raw=true)](https://framex.datavil.org)
-A [Datavil](https://datavil.org) project.
 
 # FrameX
 
