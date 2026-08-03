@@ -47,10 +47,19 @@ try {
     Expand-Archive -Path $ArchivePath -DestinationPath $TempDir -Force
     New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
     Copy-Item (Join-Path $TempDir "fx.exe") (Join-Path $InstallDir "fx.exe") -Force
+    & (Join-Path $InstallDir "fx.exe") --version | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "framex: installed binary could not be started"
+    }
 
     Write-Host "framex: installed fx to $(Join-Path $InstallDir 'fx.exe')"
-    if (($env:PATH -split ";") -notcontains $InstallDir) {
-        Write-Host "framex: add $InstallDir to PATH to run fx"
+    $UserPath = [Environment]::GetEnvironmentVariable("Path", "User")
+    $UserPathEntries = @($UserPath -split ";" | Where-Object { $_ })
+    if ($UserPathEntries -notcontains $InstallDir) {
+        $UpdatedUserPath = (@($UserPathEntries) + $InstallDir) -join ";"
+        [Environment]::SetEnvironmentVariable("Path", $UpdatedUserPath, "User")
+        Write-Host "framex: added $InstallDir to your user PATH"
+        Write-Host "framex: restart your terminal to run fx"
     }
 }
 finally {
